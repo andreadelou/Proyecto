@@ -24,6 +24,8 @@ public class Main {
 
         String resultado = "";
         Scanner scan = new Scanner(System.in);
+        boolean verificar;
+        compare comparing = new compare();
         List<String> Tempo = new ArrayList<String>();
         ArrayList<String> parentesis = new ArrayList<String>();
         ArrayList<String> operandos = new ArrayList<String>();
@@ -116,15 +118,59 @@ public class Main {
                 System.out.println(resultado);
 
             }else if(operandos.contains(">")){
-                //
+               
+                verificar = comparing.comparar(operandos.get(operandos.size()-1), operandos.get(operandos.size()-2),1);
+                System.out.println(verificar);
+                operandos.pop(operandos.size()-1);
+                operandos.pop(operandos.size()-2);
+                
             }else if(operandos.contains("<")){
-                //
+                verificar = comparing.comparar(operandos.get(operandos.size()-1), operandos.get(operandos.size()-2),2);
+                System.out.println(verificar);
+                operandos.pop(operandos.size()-1);
+                operandos.pop(operandos.size()-2);
+
             }else if(operandos.contains("equal")|| operandos.contains("eq")){
+                verificar = comparing.equal(operandos.get(operandos.size()-1), operandos.get(operandos.size()-2));
+                System.out.println(verificar);
+                operandos.pop(operandos.size()-1);
+                operandos.pop(operandos.size()-2);
 
             }else if(operandos.contains("atom")){
-                //
+                //Hay que verificar si hay números y letras
+                //Atom es ""true" si solo hay un tipo de variable
+                
+                if(variables == null || variables.size() == 0 ||numeros == null || numeros.size() == 0 ){
+                    System.out.println("T");
+                }else{
+                    System.out.println("NIL");
+                }
+
+            // VERIFICAR ANTES DE QUE YA NO HAYAN OPERANDOS
             }else if(operandos.contains("list")){
-                //
+                operandos.pop("list");
+                if(variables == null || variables.size() == 0){
+                    //Si ya no hay operandos ya se puede imprimir la lista hecha previamente 
+                    if(numeros != null || numeros.size() != 0){
+                        //Se imprimen los números como lista
+                        System.out.print("(");
+                        for (int i = 0; i < numeros.length; i++){
+                            System.out.print(i+ ", ");
+                        }
+                        System.out.print(")");
+                    }else{
+                        //se imprimen las variables como lista
+                        System.out.print("(");
+                        for (int i = 0; i < variables.length; i++){
+                            System.out.print(i+ ", ");
+                        }
+                        System.out.print(")");
+                    }
+                }else{
+                    //se vuelve a agregar list al array de operandos
+                    operandos.add("List");
+                }
+
             }else if(operandos.contains("setq")){
                 //
                 for(int i=0; i < variables.size();i++){
@@ -133,8 +179,8 @@ public class Main {
                     datas.put(variables.get(i), valor);
                     //mostrar el resultado de setq
                     System.out.println(variables.get(i) + "=" + datas.get(variables.get(i)));
+             
                 }
-
             }else if(operandos.contains("quote") || operandos.contains("'")){
                 //El quote no afecta el resultado
                 resultado = (operandos) + "";
@@ -142,10 +188,12 @@ public class Main {
                 System.out.println(resultado);
 
             }else if(operandos.isEmpty()){
-                //
+                //se termina el programa
+                bandera = false;
             }else if(operandos.contains("Cond")){
                 //
             }
+
 
 
         }while (bandera==true);
