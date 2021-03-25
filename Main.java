@@ -21,6 +21,8 @@ public class Main {
         int op=0;
         boolean bandera;
 
+
+        String resultado = "";
         Scanner scan = new Scanner(System.in);
         List<String> Tempo = new ArrayList<String>();
         ArrayList<String> parentesis = new ArrayList<String>();
@@ -62,23 +64,26 @@ public class Main {
                 bandera=true;
             }
 
-            System.out.println("Ingrese el codigo: ");
-            String data = scan.nextLine();
+            //////////////////////////////////////////////////////////////////
+            System.out.println("Ingrese la expresion");
+            String expresion = scan.nextLine();
+            ArrayList<String> todo = Reader.read(expresion);
+
             try{
                 // separando el string por espacios
-                String[] str = data.split(" ");
-                Tempo = Arrays.asList(str);
-                for(String i: Tempo){
-                    if(i.equals("(")){
-                        parentesis.add(i);
-                    }else if(i.equals(")")){
-                        parentesis.add(i);
+
+                for (int i = 0; i < todo.size(); i++) {
+                    if(todo.get(i) == "("){
+                        parentesis.add(todo.get(i));
+                    }else if(todo.get(i) ==(")")){
+                        parentesis.add(todo.get(i));
                     }else{
                         //operaciones
-                        operandos.add(i);
+                        operandos.add(todo.get(i));
                     }
                 }
 
+            ///////////////////////////////////////////////////
                 String numero=("0123456789");
 
                 //guardar numeros
@@ -93,22 +98,11 @@ public class Main {
 
                 //por si no son ni de aqui ni de alla
                 for(int i=0; i < operandos.size(); i++){
-                    if(operandos.get(i).equals("Defun") || operandos.get(i).equals(">") || operandos.get(i).equals("<") || operandos.get(i).equals("=") || operandos.get(i).equals("atom") || operandos.get(i).equals("setq") || operandos.get(i).equals("+") || operandos.get(i).equals("-") || operandos.get(i).equals("*") || operandos.get(i).equals("/") || FuncionesExtra.isNumeric(operandos.get(i))){
+                    if(operandos.get(i).equals("Defun") || operandos.get(i).equals(">") || operandos.get(i).equals("<") || operandos.get(i).equals("=") || operandos.get(i).equals("atom") || operandos.get(i).equals("setq") || operandos.get(i).equals("+") || operandos.get(i).equals("-") || operandos.get(i).equals("*") || operandos.get(i).equals("/") || numero.contains(operandos.get(i))){
                         //no pasa nada
                     }else{
                         variables.add(operandos.get(i));
                     }
-                }
-
-                //Verificar si fue ingresada bien la instrucción
-                if( parentesis.size() % 2 == 0 )
-                {
-                    //no pasa nada
-                }
-                else{
-                    System.out.println("Ha ingresado mal los datos, porfavor verifique");
-                    bandera = false;
-                    break;
                 }
 
             }catch(Exception e){
@@ -117,9 +111,8 @@ public class Main {
 
             //Realizar operaciones
             if(operandos.contains("Defun")){
-                //
                 DEFUN defun = new DEFUN();
-                String resultado =  defun.definir_funcion(operandos);
+                resultado =  defun.definir_funcion(operandos);
                 System.out.println(resultado);
 
             }else if(operandos.contains(">")){
@@ -127,8 +120,10 @@ public class Main {
             }else if(operandos.contains("<")){
                 //
             }else if(operandos.contains("equal")|| operandos.contains("eq")){
-                //
+
             }else if(operandos.contains("atom")){
+                //
+            }else if(operandos.contains("list")){
                 //
             }else if(operandos.contains("setq")){
                 //
@@ -141,7 +136,11 @@ public class Main {
                 }
 
             }else if(operandos.contains("quote") || operandos.contains("'")){
-                //
+                //El quote no afecta el resultado
+                resultado = (operandos) + "";
+                bandera = false;
+                System.out.println(resultado);
+
             }else if(operandos.isEmpty()){
                 //
             }else if(operandos.contains("Cond")){
