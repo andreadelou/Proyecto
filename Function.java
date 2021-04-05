@@ -13,5 +13,13 @@ public class Function {
 
   }
 
-  //public static void setparametro(int par){}
+  public void setparametro(String nombrepar, int par){
+    params.remove(nombrepar);
+    params.put(nombrepar, par);
+  }
+
+  public Integer getparametro(String par){
+    Integer valor = params.get(par);
+    return valor;
+  }
 }
