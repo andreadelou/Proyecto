@@ -22,4 +22,16 @@ public class Function {
     Integer valor = params.get(par);
     return valor;
   }
+
+  public LinkedList<Object> getBody(){
+    return body;
+  }
+
+  public String getName(){
+    return name;
+  }
+
+  public boolean isParameter(String nombrepar){
+    return params.containsKey(nombrepar);
+  }
 }

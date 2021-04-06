@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.HashMap;
 import java.util.Scanner;
+import java.util.HashMap;
 
 public class Reader {
 
-
+     static boolean fun = false;
 
     public static ArrayList<String> read(String expresion){
         ArrayList<String> todo = new ArrayList<>();
         String[] separado = expresion.split("");
-        System.out.println(Arrays.toString(separado));
+        //System.out.println(Arrays.toString(separado));
         String temporal = "";
         int contador = 0;
 
@@ -34,9 +34,9 @@ public class Reader {
         if(contador == 0){
             System.out.print("Expresion valida");
             return todo;
-        }else {
-            System.out.println("Expresion invalida");
-            return null;
+        }else{
+        System.out.println("Expresion invalida");
+        return null;
         }
     }
 
@@ -66,8 +66,8 @@ public class Reader {
             }else if(stringtemp .equals(")")){
                 return expresionlistada;
             }else if(stringtemp.equals("defun")){
+                fun = true;
                 String name = scan.next();
-                System.out.println(name);
                 int contador = 2;
                 ArrayList<String> parametros = new ArrayList<>();
                 while(contador !=0) {
@@ -90,13 +90,26 @@ public class Reader {
                 System.out.println(body.get(0));
                 Function nueva = new Function(name, (LinkedList<Object>) body.get(0), params);
                 Evaluador.funciones.put(name, nueva);
-                return  (LinkedList<Object>) body.get(0);
 
             }else{
                 expresionlistada.add(stringtemp);
             }
         }
 
+        limpiarlista(expresionlistada);
+
         return expresionlistada;
     }
+
+    private static void limpiarlista(LinkedList liston){
+        for(int i = 0; i <liston.size(); i++){
+            if(liston.get(i) instanceof LinkedList){
+                if(((LinkedList) liston.get(i)).isEmpty()){
+                    liston.remove(i);
+                }
+            }
+        }
+
+    }
 }
+
