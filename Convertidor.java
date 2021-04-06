@@ -1,5 +1,4 @@
 import java.util.Stack;
-import java.lang.*;
 public class Convertidor {
     private static boolean isOperator(Character c) {
         switch(c) {
@@ -29,7 +28,7 @@ public class Convertidor {
                 stack.push(String.valueOf(c));
             }
         }
-        System.out.println(stack.peek());
+        //System.out.println(stack.peek());
 
         return stack.peek();
     }
