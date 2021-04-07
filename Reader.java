@@ -6,39 +6,7 @@ import java.util.HashMap;
 
 public class Reader {
 
-     static boolean fun = false;
-
-    public static ArrayList<String> read(String expresion){
-        ArrayList<String> todo = new ArrayList<>();
-        String[] separado = expresion.split("");
-        //System.out.println(Arrays.toString(separado));
-        String temporal = "";
-        int contador = 0;
-
-        for(String caracter: separado) {
-            if (caracter.equals(" ")) {
-                todo.add(temporal);
-                temporal = "";
-            } else if (caracter.equals("(")) {
-                todo.add(temporal);
-                temporal = "";
-                contador++;
-            } else if (caracter.equals(")")) {
-                todo.add(temporal);
-                temporal = "";
-                contador--;
-            } else {
-                temporal += caracter;
-            }
-        }
-        if(contador == 0){
-            System.out.print("Expresion valida");
-            return todo;
-        }else{
-        System.out.println("Expresion invalida");
-        return null;
-        }
-    }
+    static boolean fun = false;
 
     private static LinkedList<Object> Crearbody(Scanner scanneado){
         LinkedList<Object> expresionlistada = new LinkedList<Object>();
@@ -63,7 +31,7 @@ public class Reader {
             if(stringtemp.equals("(")){
                 temporal = ListReader(scan);
                 expresionlistada.add(temporal);
-            }else if(stringtemp .equals(")")){
+            }else if(stringtemp.equals(")")){
                 return expresionlistada;
             }else if(stringtemp.equals("defun")){
                 fun = true;
@@ -81,17 +49,17 @@ public class Reader {
                         parametros.add(tempy);
                     }
                 }
-                HashMap<String, Integer> params = new HashMap<>();
+                HashMap<String, Double> params = new HashMap<>();
                 for(int i = 0; i<parametros.size(); i++){
                     String param = parametros.get(i);
-                    params.put(param, 0);
+                    params.put(param, 0.0);
                 }
                 LinkedList<Object> body = Crearbody(scan);
                 System.out.println(body.get(0));
                 Function nueva = new Function(name, (LinkedList<Object>) body.get(0), params);
                 Evaluador.funciones.put(name, nueva);
 
-            }else{
+            }else if(!stringtemp.isBlank()){
                 expresionlistada.add(stringtemp);
             }
         }

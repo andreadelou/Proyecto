@@ -1,11 +1,10 @@
-public class compare{
+public class Compare{
     boolean retorno = false ;
     public boolean comparar (String one, String two, int signo){
         // 1 es mayor que
         //2 es menor que
-        
-        uno = Integer.parseInt(one); 
-        dos = Integer.parseInt(two); 
+        int uno = Integer.parseInt(one);
+        int dos = Integer.parseInt(two);
         //>
         if(signo == 1){
             if(uno > dos){
@@ -13,8 +12,8 @@ public class compare{
             }else{
                 retorno = false;
             }
-        //<
-        }else if(signo == 2{
+            //<
+        }else if(signo == 2){
             if(uno < dos){
                 retorno = true;
             }else{
