@@ -1,12 +1,15 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Scanner;
-import java.util.HashMap;
+import java.util.*;
 
 public class Reader {
 
-    static boolean fun = false;
+     static boolean fun = false;
+
+    /**
+     * Metodo con el cual se lee la expresion y se guarda en una lista dependiendo de la expresión ingresada
+     *@author ALejandro Archila, Maria Argueta, Andrea Lam
+     *@gets LinkedList<Object>
+     *@returns String
+     */
 
     private static LinkedList<Object> Crearbody(Scanner scanneado){
         LinkedList<Object> expresionlistada = new LinkedList<Object>();
@@ -49,13 +52,13 @@ public class Reader {
                         parametros.add(tempy);
                     }
                 }
-                HashMap<String, Double> params = new HashMap<>();
+                HashMap<String, Stack<Double>> params = new HashMap<>();
                 for(int i = 0; i<parametros.size(); i++){
                     String param = parametros.get(i);
-                    params.put(param, 0.0);
+                    Stack<Double> stack = new Stack<>();
+                    params.put(param, stack);
                 }
                 LinkedList<Object> body = Crearbody(scan);
-                System.out.println(body.get(0));
                 Function nueva = new Function(name, (LinkedList<Object>) body.get(0), params);
                 Evaluador.funciones.put(name, nueva);
 
@@ -80,4 +83,3 @@ public class Reader {
 
     }
 }
-

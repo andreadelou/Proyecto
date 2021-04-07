@@ -1,6 +1,13 @@
 import java.util.Stack;
-import java.lang.*;
 public class Convertidor {
+
+    /**
+     * Metodo que convierte la funcion infix a posfix
+     *@author ALejandro Archila, Maria Argueta, Andrea Lam
+     *@gets String
+     *@returns String
+     */
+
     private static boolean isOperator(Character c) {
         switch(c) {
             case '+':
@@ -13,9 +20,7 @@ public class Convertidor {
     }
 
     public static String prefixToPostfix(String exp) {
-        //System.out.println(exp);
         Stack<String> stack = new Stack<String>();
-        //String[] expresion = exp.split(" ");
         String acumulado = "";
         for (int i = exp.length() - 1; i >= 0; i--){
             Character c = exp.charAt(i);
@@ -26,7 +31,8 @@ public class Convertidor {
                 String temp = s1 + " " + s2 + " " + String.valueOf(c);
                 stack.push(temp);
             }else if(c.equals(' ')){
-                stack.push(acumulado);
+                if(!acumulado.isEmpty())
+                    stack.push(acumulado);
                 acumulado = "";
             }else {
                 acumulado = c + acumulado;
